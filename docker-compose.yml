@@ -1,0 +1,24 @@
+services:
+  beets:
+    container_name: beets
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Argentina/Buenos_Aires
+    ports:
+      - 8337:8337
+    volumes:
+      - /ruta/a/tu/configuracion/de/beets:/config
+      # custom-cont-init.d es una carpeta interna de beets (linuxserver) donde se puede
+      # incluir un script que se ejecuta al inicio
+      - /ruta/a/custom-cont-init.d:/custom-cont-init.d
+      - /ruta/a/tu/libreria/musical:/music
+      # En este caso, /ruta/a/la/carpeta/a/importar es la misma donde descarga slskd
+      - /ruta/a/la/carpeta/a/importar:/import
+    restart: unless-stopped
+    image: linuxserver/beets
+    networks:
+      - GeneralNetwork
+    entrypoint: /bin/bash -c "
+      echo '*/30 * * * * /config/import.sh' | crontab -u abc - &&
+      exec /init"  

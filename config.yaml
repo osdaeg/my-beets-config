@@ -1,0 +1,98 @@
+# ----------------------------------------------------------------
+# BEETS CONFIGURATION - COMPLETE AUTOMATED SETUP
+# ----------------------------------------------------------------
+
+directory: /music
+library: /config/musiclibrary.db
+
+# Plugins activados
+plugins:
+    - fetchart
+    - embedart
+    - lyrics
+    - lastgenre
+    - info
+    - inline
+    - mbsync
+    - scrub
+    - web
+    - chroma
+
+# Configuración del Importador
+import:
+    write: yes
+    copy: no
+    move: yes             # Mueve y limpia /import
+    autotag: yes
+    quiet: yes
+    quiet_fallback: asis  # Si no está seguro, lo importa igual (sin trabas)
+    resume: yes
+    incremental: yes
+    clutter: ["Thumbs.db", ".DS_Store", "*.m3u", "*.nfo", "*.txt"]
+
+# Limpieza de carpetas vacías tras mover la música
+cleanup: yes
+
+web:
+    host: 0.0.0.0
+    port: 8337
+
+verbose: yes
+
+logpath: /config/beets.log
+
+ui:
+    color: yes
+
+# --- LIMPIEZA DE TAGS ---
+scrub:
+    auto: yes             # Limpia tags basura antes de importar
+
+# --- CONFIGURACIÓN DE CARÁTULAS (ART) ---
+fetchart:
+    auto: yes
+    copy_art: yes         # Crea el archivo cover.jpg en la carpeta
+    filename: cover
+    maxwidth: 1000        # Calidad balanceada
+    sources:
+        - filesystem
+        - coverartarchive
+        - itunes
+        - amazon
+        - google
+
+embedart:
+    auto: yes             # Mete la imagen dentro de los tags del archivo
+    ifempty: yes          # No pisa imágenes que ya existan manualmente
+
+# --- OTROS PLUGINS ---
+lyrics:
+    auto: yes
+    sources:
+        - google
+        - genius
+        - musixmatch
+
+lastgenre:
+    auto: yes
+    source: album
+    fallback: ''
+
+# --- ACOUSTID / CHROMAPRINT ---
+chroma:
+    auto: yes             # Usa huella de audio durante la importación
+
+acoustid:
+    apikey: TU_API_KEY_AQUI   # Registrá una app en https://acoustid.org/new-application
+
+# --- ESTRUCTURA DE ARCHIVOS ---
+paths:
+    default: $albumartist/($year) $album/$track - $title
+    singleton: Non-Album/$artist/$title
+    comp: Compilations/$album/$track - $title
+
+# Ajustes de Coincidencia (Flexibles para automatización)
+match:
+    strong_rec_thresh: 0.15
+    medium_rec_thresh: 0.25
+    ignored_media: ['Data CD', 'DVD', 'Blu-ray']

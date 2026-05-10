@@ -1,0 +1,22 @@
+#!/with-contenv bash
+
+# Modificar /config por la carpeta correspondiente
+echo "!!!! EL SCRIPT DE INICIO ESTA FUNCIONANDO !!!!" >> /config/beets.log
+
+# Instalar el cronjob
+echo "!!!! CONFIGURANDO CRON PARA ABC !!!!"  >> /config/beets.log
+
+# 1. Crear el archivo de cron directamente donde LinuxServer lo lee
+# Usamos un 'here-document' para evitar problemas de piping
+cat <<EOF > /config/crontabs/abc
+*/30 * * * * /config/import.sh
+
+EOF
+
+# 2. Forzar al sistema a que cargue el archivo que acabamos de crear/actualizar
+crontab -u abc /config/crontabs/abc
+
+echo "!!!! CRONTAB ACTUALIZADO PARA USUARIO ABC !!!!" >> /config/beets.log
+
+# Lanzar import inicial
+s6-setuidgid abc bash /config/import.sh &

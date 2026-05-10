@@ -1,0 +1,7 @@
+.env
+*.log
+.cache/
+.bash_history
+README.md.github
+
+README.md.codeberg
