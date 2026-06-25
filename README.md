@@ -35,7 +35,7 @@ A partir de ahí, `import.sh` corre cada 30 minutos via cron. El script:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/osdaeg/beets-config.git
+git clone https://codeberg.org/osdaeg/beets-config.git
 cd beets-config
 ```
 
@@ -143,8 +143,8 @@ Compilations/$album/$track - $title             ← compilaciones
 
 ## Recursos útiles
 
-- [Script post-descarga para SLSKD](https://github.com/osdaeg/slskd-finish-script)
-- [Editor de metadatos Taggerr](https://github.com/osdaeg/taggerr)
+- [Script post-descarga para SLSKD](https://codeberg.org/osdaeg/slskd-finish-script)
+- [Editor de metadatos Taggerr](https://codeberg.org/osdaeg/taggerr)
 
 ---
 
@@ -156,7 +156,7 @@ La carpeta `/import` de beets es la misma carpeta de descargas de slskd. Para ev
 
 ## Integración con Taggerr
 
-[Taggerr](https://github.com/osdaeg/taggerr) es un editor de tags web complementario. Edita los archivos directamente en disco; `beet update` (incluido en `import.sh`) sincroniza esos cambios con la base de datos de beets en cada ciclo.
+[Taggerr](https://codeberg.org/osdaeg/taggerr) es un editor de tags web complementario. Edita los archivos directamente en disco; `beet update` (incluido en `import.sh`) sincroniza esos cambios con la base de datos de beets en cada ciclo.
 
 ---
 
